@@ -1,5 +1,5 @@
 const Int_t n_harm       = 2;
-const Int_t n_energy     = 2;
+const Int_t n_energy     = 1;
 const Int_t n_sorts      = 3;
 const Int_t n_centrality = 2;
 const Int_t n_proj       = 3;
@@ -14,22 +14,22 @@ const Int_t line_pt_style[]   ={1,2,9};
 const Float_t latex_coord[]     ={0.45,0.85};
 const TString latex_title       =TString("UrQMD, Au+Au");
 
-const Float_t range_vn_pt[2][2]      ={{-0.15,0.37},{-0.019,0.19}};
+const Float_t range_vn_pt[2][2]      ={{-0.08,0.18},{-0.019,0.15}};
 const Float_t range_vn_rapidity[2][2]={{-0.22,0.22},{0.,0.099}};
 const Float_t rapidity_range[]       ={-1.4,1.4};
-const Float_t pt_range[]             ={0.,2.};
+const Float_t pt_range[]             ={0.21,2.};
 const Float_t pt_track_range[]       ={0.,3.1};
 const Float_t eta_track_range[]      ={-1.9,1.9};
-const Float_t res_range[2][2]        ={{0.,1.},{0.,0.7}};
-const Float_t vn_cent_range[2][2]    ={{-0.13,0.01},{-0.035,0.045}};
+const Float_t res_range[2][2]        ={{0.21,1.2},{0.01,0.96}};
+const Float_t vn_cent_range[2][2]    ={{-0.07,0.01},{-0.035,0.045}};
 const Float_t dca_x_range[]          ={-3.1,3.1};
-const Float_t mult_range[]           ={0,900};
+const Float_t mult_range[]           ={0,1800};
 const Int_t   n_hits_range[]         ={0,59};
-const Int_t   centrality_range[]     ={0,109};
+const Int_t   centrality_range[]     ={0,79};
 
 const double range_dca[]={1e5,2e8};
 
-const TString energy_title[]={TString("5 GeV HITS"),TString("11 GeV CLUSTERS")};
+const TString energy_title[]={TString("11 GeV"),TString("11 GeV")};
 const TString pid_title[]={TString("p"),TString("K"),TString("#pi")};
 const TString proj_title[]={TString("x"),TString("y"),TString("z")};
 
@@ -42,7 +42,7 @@ const int NptBins = 12;
 const float etaBins[] = {-1.5,-1.2,-1.,-0.8,-0.6,-0.4,-0.2,0.,0.2,0.4,0.6,0.8,1.,1.2,1.5};
 const int NetaBins = 14;
 
-void Draw_TDR()
+void Draw_TDR_clone()
 {
     
     gROOT->ForceStyle();
@@ -55,26 +55,63 @@ void Draw_TDR()
     TFile* in_res_true_file_HP[n_energy];
     TFile* in_res_reco_file[n_energy];
 
-    TFile* in_res_laqgsm_file = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/LAQGSM.root","read");
+    //TFile* in_res_laqgsm_file = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/LAQGSM.root","read");
 
-    in_res_true_file[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-5-gev.root","read");
-    in_res_true_file_HP[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-5-gev_HP.root","read");
-    in_res_reco_file[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-fit-5-gev.root","read");
-    in_res_true_file[1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-11-gev.root","read");
-    in_res_true_file_HP[1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-11-gev_HP.root","read");
-    in_res_reco_file[1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-fit-11-gev.root","read");
+    //in_res_true_file[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-5-gev.root","read");
+    //in_res_true_file_HP[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-5-gev_HP.root","read");
+    //in_res_reco_file[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-fit-5-gev.root","read");
+    in_res_true_file[0] = new TFile("/home/peter/res_hist-11gev.root","read");
+    //in_res_true_file_HP[0] = new TFile("/home/peter/res_hist-11gev.root","read");
+    in_res_reco_file[0] = new TFile("/home/peter/res-fit-11gev.root","read");
+    //in_res_true_file[1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-11-gev.root","read");
+    //in_res_true_file[1] = new TFile("/home/peter/res_hist-11gev.root","read");
+    ////in_res_true_file_HP[1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-11-gev_HP.root","read");
+    //in_res_true_file_HP[1] = new TFile("/home/peter/res_hist-11gev.root","read");
+    ////in_res_reco_file[1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-fit-11-gev.root","read");
+    //in_res_reco_file[1] = new TFile("/home/peter/res-fit-11gev.root","read");
 
-    in_flow_file[0][0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-proton.root","read");
-    in_flow_file[0][1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-kaon.root","read");
-    in_flow_file[0][2] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-pion.root","read");
-    in_flow_file[1][0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-proton.root","read");
-    //in_flow_file[1][0] = new TFile("/home/peter/flow-11gev-protonsPDG.root","read");
-    in_flow_file[1][1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-kaon.root","read");
-    in_flow_file[1][2] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-pion.root","read");
+    //in_flow_file[0][0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-proton.root","read");
+    //in_flow_file[0][1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-kaon.root","read");
+    //in_flow_file[0][2] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-pion.root","read");
+    in_flow_file[0][0] = new TFile("/home/peter/flow-11gev-protons_noBirkPDG.root","read");
+    in_flow_file[0][1] = new TFile("/home/peter/flow-11gev-kaons_noBirkPDG.root","read");
+    in_flow_file[0][2] = new TFile("/home/peter/flow-11gev-pions_noBirkPDG.root","read");
+    //in_flow_file[1][0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-proton.root","read");
+    //in_flow_file[1][0] = new TFile("/home/peter/flow-11gev-protons_noBirkPDG.root","read");
+    ////in_flow_file[1][1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-kaon.root","read");
+    //in_flow_file[1][1] = new TFile("/home/peter/flow-11gev-kaons_noBirkPDG.root","read");
+    ////in_flow_file[1][2] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-pion.root","read");
+    //in_flow_file[1][2] = new TFile("/home/peter/flow-11gev-pions_noBirkPDG.root","read");
     
-    TFile* inStyle = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/my_style.root","READ");
+    //TFile* inStyle = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/my_style.root","READ");
     
-    TStyle* style = (TStyle*) inStyle->Get("style");
+    //TStyle* style = (TStyle*) inStyle->Get("style");
+    
+    TStyle* style = new TStyle("Default","Default style");
+    style->SetTitleSize(0.05,"X");
+    style->SetTitleSize(0.05,"Y");
+    style->SetTitleOffset(1.15,"Y");
+    style->SetTitleOffset(0.9,"X");
+    style->SetFrameLineWidth(2);
+    style->SetFrameFillColor(0);
+    style->SetPadColor(0);
+    style->SetLabelSize(0.04,"X");
+    style->SetLabelSize(0.04,"Y");
+    style->SetPadTopMargin(0.1);
+    style->SetPadBottomMargin(0.12);
+    style->SetPadLeftMargin(0.12);
+    style->SetPadTopMargin(0.02);
+    style->SetPadRightMargin(0.03);
+    style->SetMarkerSize(1.2);
+    style->SetErrorX(0);
+    style->SetOptStat(0);
+    style->SetCanvasColor(0);
+    style->SetTitleFillColor(0);
+    style->SetTitleBorderSize(0);
+    style->SetCanvasBorderMode(0);
+    style->SetLegendBorderSize(0);
+    style->SetPadBorderMode(0);
+    style->SetLineWidth(2);
 
     style->cd();
     
@@ -152,12 +189,12 @@ void Draw_TDR()
 
     //GET HISTOGRAMS FROM FILES
     //--------------------------------------------------------------------------------------------------------
-    for (Int_t i_harm=0; i_harm<n_harm; i_harm++){
-        p_res_laqgsm_vs_centrality[i_harm] = (TH1F*) in_res_laqgsm_file->Get(Form("p_ResPsi_vs_b_flipped[%i][%i][%i]",i_harm,0,1));
-        p_res_laqgsm_vs_centrality[i_harm]->SetName(Form("p_res_laqgsm_vs_centrality%i",i_harm));
-        h_res_laqgsm_vs_centrality[i_harm] = (TH1F*) in_res_laqgsm_file->Get(Form("p_true_Res_vs_b_flipped[%i][%i][%i]",i_harm,0,1));
-        h_res_laqgsm_vs_centrality[i_harm]->SetName(Form("h_res_laqgsm_vs_centrality%i",i_harm));
-    }
+    //for (Int_t i_harm=0; i_harm<n_harm; i_harm++){
+        //p_res_laqgsm_vs_centrality[i_harm] = (TH1F*) in_res_laqgsm_file->Get(Form("p_ResPsi_vs_b_flipped[%i][%i][%i]",i_harm,0,1));
+        //p_res_laqgsm_vs_centrality[i_harm]->SetName(Form("p_res_laqgsm_vs_centrality%i",i_harm));
+        //h_res_laqgsm_vs_centrality[i_harm] = (TH1F*) in_res_laqgsm_file->Get(Form("p_true_Res_vs_b_flipped[%i][%i][%i]",i_harm,0,1));
+        //h_res_laqgsm_vs_centrality[i_harm]->SetName(Form("h_res_laqgsm_vs_centrality%i",i_harm));
+    //}
 
     for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
         h_n_hits_before[i_energy] = (TH1F*) in_res_true_file[i_energy]->Get(Form("h_nhits_TPC"));
@@ -165,7 +202,7 @@ void Draw_TDR()
         h_n_hits_after[i_energy] = (TH1F*) in_res_true_file[i_energy]->Get(Form("h_nhits_TPC_after"));
         h_n_hits_after[i_energy]->SetName(Form("h_n_hits_after%i",i_energy));
 
-        h_mult[i_energy] = (TH1F*) in_res_true_file[i_energy]->Get(Form("h_multiplicity"));
+        h_mult[i_energy] = (TH1F*) in_res_true_file[i_energy]->Get(Form("h_multiplicity_before"));
         h_mult[i_energy]->SetName(Form("h_mult%i",i_energy));
 
         h2_b_vs_centrality[i_energy] = (TH2F*) in_res_true_file[i_energy]->Get("h2_b_vs_centrality");
@@ -223,10 +260,10 @@ void Draw_TDR()
                 h_pt_true_in_after[i_energy][i_cent][i_sort] = (TH1F*) in_res_true_file[i_energy]->Get(Form("h_pt_mc_after[%i][%i]",i_cent,i_sort));
                 h_pt_true_in_after[i_energy][i_cent][i_sort]->SetName(Form("h_pt_true_in_after%i%i%i",i_energy,i_cent,i_sort));
 
-                h_pt_reco_in_after_HP[i_energy][i_cent][i_sort] = (TH1F*) in_res_true_file_HP[i_energy]->Get(Form("h_pt_after[%i][%i]",i_cent,i_sort));
-                h_pt_reco_in_after_HP[i_energy][i_cent][i_sort]->SetName(Form("h_pt_reco_in_after_HP%i%i%i",i_energy,i_cent,i_sort));
-                h_pt_true_in_after_HP[i_energy][i_cent][i_sort] = (TH1F*) in_res_true_file_HP[i_energy]->Get(Form("h_pt_mc_after[%i][%i]",i_cent,i_sort));
-                h_pt_reco_in_after_HP[i_energy][i_cent][i_sort]->SetName(Form("h_pt_reco_in_after_HP%i%i%i",i_energy,i_cent,i_sort));
+                //h_pt_reco_in_after_HP[i_energy][i_cent][i_sort] = (TH1F*) in_res_true_file_HP[i_energy]->Get(Form("h_pt_after[%i][%i]",i_cent,i_sort));
+                //h_pt_reco_in_after_HP[i_energy][i_cent][i_sort]->SetName(Form("h_pt_reco_in_after_HP%i%i%i",i_energy,i_cent,i_sort));
+                //h_pt_true_in_after_HP[i_energy][i_cent][i_sort] = (TH1F*) in_res_true_file_HP[i_energy]->Get(Form("h_pt_mc_after[%i][%i]",i_cent,i_sort));
+                //h_pt_reco_in_after_HP[i_energy][i_cent][i_sort]->SetName(Form("h_pt_reco_in_after_HP%i%i%i",i_energy,i_cent,i_sort));
 
                 h_eta_reco_in_before[i_energy][i_cent][i_sort] = (TH1F*) in_res_true_file[i_energy]->Get(Form("h_eta[%i][%i]",i_cent,i_sort));
                 h_eta_reco_in_before[i_energy][i_cent][i_sort]->SetName(Form("h_eta_reco_in_before%i%i%i",i_energy,i_cent,i_sort));
@@ -331,16 +368,16 @@ void Draw_TDR()
         }
     }
 
-    for (Int_t i_harm=0; i_harm<n_harm; i_harm++){
-        p_res_laqgsm_vs_centrality[i_harm]->SetXTitle("Centrality, %");
-        h_res_laqgsm_vs_centrality[i_harm]->SetXTitle("Centrality, %");
+    //for (Int_t i_harm=0; i_harm<n_harm; i_harm++){
+        //p_res_laqgsm_vs_centrality[i_harm]->SetXTitle("Centrality, %");
+        //h_res_laqgsm_vs_centrality[i_harm]->SetXTitle("Centrality, %");
 
-        p_res_laqgsm_vs_centrality[i_harm]->SetMarkerStyle(22);//marker_res_style[0]);
-        h_res_laqgsm_vs_centrality[i_harm]->SetMarkerStyle(26);//marker_res_style[1]);
+        //p_res_laqgsm_vs_centrality[i_harm]->SetMarkerStyle(marker_res_style[0]);
+        //h_res_laqgsm_vs_centrality[i_harm]->SetMarkerStyle(marker_res_style[1]);
 
-        p_res_laqgsm_vs_centrality[i_harm]->SetMarkerColor(51);//marker_res_color[3]);
-        h_res_laqgsm_vs_centrality[i_harm]->SetMarkerColor(51);//marker_res_color[3]);
-    }
+        //p_res_laqgsm_vs_centrality[i_harm]->SetMarkerColor(marker_res_color[3]);
+        //h_res_laqgsm_vs_centrality[i_harm]->SetMarkerColor(marker_res_color[3]);
+    //}
 
     for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
         for (Int_t i_harm=0; i_harm<n_harm;i_harm++){
@@ -424,28 +461,29 @@ void Draw_TDR()
     //MULTIPLICITY
     //--------------------------------------------------------------------------------------------------------
     TCanvas* c_mult = new TCanvas("c_mult","Multiplicity",500,500);
-    TLegend* leg_mult = new TLegend(0.66,0.67,0.85,0.86);
+    TLegend* leg_mult = new TLegend(0.25,0.75,0.95,0.95);
     c_mult->cd();
     c_mult->SetLogy();
     h_mult[0]->GetXaxis()->SetRangeUser(mult_range[0],mult_range[1]);
     h_mult[0]->GetXaxis()->SetNdivisions(5);
+    h_mult[0]->SetTitle("");
     h_mult[0]->Draw("");
-    h_mult[1]->Draw("SAME");
-    leg_mult->AddEntry((TObject*)0,"UrQMD Au+Au","");
+    //h_mult[1]->Draw("SAME");
+    leg_mult->SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events","C");
     leg_mult->AddEntry(h_mult[0],energy_title[0].Data(),"l");
-    leg_mult->AddEntry(h_mult[1],energy_title[1].Data(),"l");
+    //leg_mult->AddEntry(h_mult[1],energy_title[1].Data(),"l");
     leg_mult->Draw();
     //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
-    c_mult->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/multiplicity.eps","recreate");
-    c_mult->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/multiplicity.pdf","recreate");
-    c_mult->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/multiplicity.png","recreate");
-    c_mult->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/multiplicity.C","recreate");
+    c_mult->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/multiplicity.eps","recreate");
+    c_mult->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/multiplicity.png","recreate");
+    c_mult->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/multiplicity.pdf","recreate");
+    c_mult->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/multiplicity.C","recreate");
 
     //SIGMA B/B VS CENTRALITY
     //--------------------------------------------------------------------------------------------------------
     TCanvas* c_b_cent = new TCanvas("c_b_cent","sigma b",500,500);
-    TLegend* leg_sigm = new TLegend(0.66,0.67,0.85,0.86);
+    TLegend* leg_sigm = new TLegend(0.25,0.75,0.95,0.95);
     for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
         for (int bin = 1; bin < h2_b_vs_centrality[i_energy]->GetNbinsX(); ++bin){
             if ( h2_b_vs_centrality[i_energy]->ProjectionY("",bin,bin)->GetRMS() != 0)
@@ -454,17 +492,17 @@ void Draw_TDR()
     }
     c_b_cent->cd();
     p_resolution_vs_centrality[0]->Draw("P");
-    p_resolution_vs_centrality[1]->Draw("P,SAME");
-    leg_sigm->AddEntry((TObject*)0,"UrQMD Au+Au","");
+    //p_resolution_vs_centrality[1]->Draw("P,SAME");
+    leg_sigm->SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events","C");
     leg_sigm->AddEntry(p_resolution_vs_centrality[0],energy_title[0].Data(),"p");
-    leg_sigm->AddEntry(p_resolution_vs_centrality[1],energy_title[1].Data(),"p");
+    //leg_sigm->AddEntry(p_resolution_vs_centrality[1],energy_title[1].Data(),"p");
     leg_sigm->Draw();
     //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
-    c_b_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/b_vs_mult.eps","recreate");
-    c_b_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/b_vs_mult.pdf","recreate");
-    c_b_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/b_vs_mult.png","recreate");
-    c_b_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/b_vs_mult.C","recreate");
+    c_b_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/b_vs_mult.eps","recreate");
+    c_b_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/b_vs_mult.png","recreate");
+    c_b_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/b_vs_mult.pdf","recreate");
+    c_b_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/b_vs_mult.C","recreate");
 
     //EFFICIENCY
     //--------------------------------------------------------------------------------------------------------
@@ -478,8 +516,8 @@ void Draw_TDR()
                 h_pt_reco_after[i_energy][i_sort]->Add(h_pt_reco_in_after[i_energy][i_cent][i_sort]);
                 h_pt_true_after[i_energy][i_sort]->Add(h_pt_true_in_after[i_energy][i_cent][i_sort]);
 
-                h_pt_reco_after_HP[i_energy][i_sort]->Add(h_pt_reco_in_after_HP[i_energy][i_cent][i_sort]);
-                h_pt_true_after_HP[i_energy][i_sort]->Add(h_pt_true_in_after_HP[i_energy][i_cent][i_sort]);
+                //h_pt_reco_after_HP[i_energy][i_sort]->Add(h_pt_reco_in_after_HP[i_energy][i_cent][i_sort]);
+                //h_pt_true_after_HP[i_energy][i_sort]->Add(h_pt_true_in_after_HP[i_energy][i_cent][i_sort]);
 
                 if (i_cent==1) h_eta_reco_before[i_energy][i_sort]->Add(h_eta_reco_in_before[i_energy][i_cent][i_sort]);
                 if (i_cent==1) h_eta_reco_after[i_energy][i_sort]->Add(h_eta_reco_in_after[i_energy][i_cent][i_sort]);
@@ -491,34 +529,44 @@ void Draw_TDR()
             h_pt_eff_before[i_energy][i_sort]->Divide(h_pt_reco_before[i_energy][i_sort],h_pt_true_before[i_energy][i_sort]);
             h_pt_eff_after[i_energy][i_sort]->Divide(h_pt_reco_after[i_energy][i_sort],h_pt_true_after[i_energy][i_sort]);
 
-            h_pt_eff_after_HP[i_energy][i_sort]->Divide(h_pt_reco_after_HP[i_energy][i_sort],h_pt_true_after_HP[i_energy][i_sort]);
+            //h_pt_eff_after_HP[i_energy][i_sort]->Divide(h_pt_reco_after_HP[i_energy][i_sort],h_pt_true_after_HP[i_energy][i_sort]);
         }
     }
     c_eff->cd();
     h_pt_eff_after[0][2]->GetXaxis()->SetRangeUser(0,2.);
     h_pt_eff_after[0][2]->GetXaxis()->SetNdivisions(5);
+    h_pt_eff_after[0][2]->SetMarkerStyle(marker_flow_stl[0][1]);
+    h_pt_eff_after[0][1]->SetMarkerStyle(marker_flow_stl[0][0]);
+    h_pt_eff_after[0][3]->SetMarkerStyle(marker_flow_stl[0][2]);
+    h_pt_eff_after[0][2]->SetMarkerColor(marker_res_color[1]);
+    h_pt_eff_after[0][1]->SetMarkerColor(marker_res_color[0]);
+    h_pt_eff_after[0][3]->SetMarkerColor(marker_res_color[2]);
     //h_pt_true_after[0][2]->Draw("");
     //h_pt_reco_after[0][2]->Draw("SAME");
     h_pt_eff_after[0][2]->Draw("P");
-    h_pt_eff_after[1][2]->Draw("P,SAME");
-    h_pt_eff_after_HP[0][2]->Draw("P,SAME");
-    h_pt_eff_after_HP[1][2]->Draw("P,SAME");
-    leg_eff->AddEntry(h_pt_eff_after[0][2],Form("2#sigma DCA, HITS"),"p");
-    leg_eff->AddEntry(h_pt_eff_after_HP[0][2],Form("motherID,  HITS"),"p");
-    leg_eff->AddEntry(h_pt_eff_after[1][2],Form("2#sigma DCA, CLUSTERS"),"p");
-    leg_eff->AddEntry(h_pt_eff_after_HP[1][2],Form("motherID, CLUSTERS"),"p");
+    h_pt_eff_after[0][1]->Draw("PSAME");
+    h_pt_eff_after[0][3]->Draw("PSAME");
+    //h_pt_eff_after[1][2]->Draw("P,SAME");
+    //h_pt_eff_after_HP[0][2]->Draw("P,SAME");
+    //h_pt_eff_after_HP[1][2]->Draw("P,SAME");
+    leg_eff->AddEntry(h_pt_eff_after[0][2],Form("Protons"),"p");
+    leg_eff->AddEntry(h_pt_eff_after[0][1],Form("Pions"),"p");
+    leg_eff->AddEntry(h_pt_eff_after[0][3],Form("Kaons"),"p");
+    //leg_eff->AddEntry(h_pt_eff_after_HP[0][2],Form("motherID,  HITS"),"p");
+    //leg_eff->AddEntry(h_pt_eff_after[1][2],Form("2#sigma DCA, CLUSTERS"),"p");
+    //leg_eff->AddEntry(h_pt_eff_after_HP[1][2],Form("motherID, CLUSTERS"),"p");
     leg_eff->Draw();
     //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
-    c_eff->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/Efficiency.eps","recreate");
-    c_eff->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/Efficiency.pdf","recreate");
-    c_eff->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/Efficiency.png","recreate");
-    c_eff->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/Efficiency.C","recreate");
+    c_eff->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/Efficiency.eps","recreate");
+    c_eff->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/Efficiency.png","recreate");
+    c_eff->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/Efficiency.pdf","recreate");
+    c_eff->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/Efficiency.C","recreate");
 
     //TRACK SELECTION
     //--------------------------------------------------------------------------------------------------------
     TCanvas* c_track_selection = new TCanvas("c_track_selection","track selection",1000,1000);
-    TLegend* leg_sel = new TLegend(0.68,0.71,0.87,0.89);
+    TLegend* leg_sel = new TLegend(0.48,0.71,0.87,0.89);
     TLegend* leg_pid = new TLegend(0.68,0.63,0.87,0.82);
     c_track_selection->Divide(2,2);
     c_track_selection->cd(1);
@@ -561,10 +609,10 @@ void Draw_TDR()
     leg_pid->Draw();
     //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
-    c_track_selection->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/track_selection.eps","recreate");
-    c_track_selection->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/track_selection.png","recreate");
-    c_track_selection->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/track_selection.pdf","recreate");
-    c_track_selection->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/track_selection.C","recreate");
+    c_track_selection->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/track_selection.eps","recreate");
+    c_track_selection->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/track_selection.png","recreate");
+    c_track_selection->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/track_selection.pdf","recreate");
+    c_track_selection->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/track_selection.C","recreate");
 
     //DCA
     //--------------------------------------------------------------------------------------------------------
@@ -630,10 +678,10 @@ void Draw_TDR()
     leg_contam->Draw();
     //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
-    c_dca->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/dca.eps","recreate");
-    c_dca->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/dca.png","recreate");
-    c_dca->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/dca.pdf","recreate");
-    c_dca->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/dca.C","recreate");
+    c_dca->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/dca.eps","recreate");
+    c_dca->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/dca.png","recreate");
+    c_dca->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/dca.pdf","recreate");
+    c_dca->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/dca.C","recreate");
 
     //RESOLUTION VS CENTRALITY
     //--------------------------------------------------------------------------------------------------------
@@ -641,40 +689,43 @@ void Draw_TDR()
     TLegend* leg_res;
     TLegend* leg_res_energy;
 
-    leg_res = new TLegend(0.33,0.24,0.50,0.41);
+    leg_res = new TLegend(0.23,0.69,0.60,0.87);
 
     leg_res_energy = new TLegend(0.66,0.69,0.85,0.87);
 
     c_res->Divide(2,1);
 
-    leg_res->AddEntry((TObject*)0,"UrQMD Au+Au","");
-    for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
-        leg_res->AddEntry(h_res_vs_centrality[i_energy][0],energy_title[i_energy].Data(),"p");
-    }
-    leg_res->AddEntry((TObject*)0,"LAQGSM Au+Au","");
-    leg_res->AddEntry(p_res_laqgsm_vs_centrality[0],energy_title[1].Data(),"p");
-    leg_res_energy->SetHeader("FHCal");
+    leg_res->AddEntry((TObject*)0,"UrQMD, GEANT3, 1M events","");
+    leg_res->AddEntry((TObject*)0,"","");
+    leg_res->AddEntry((TObject*)0,"","");
+    //for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
+        //leg_res->AddEntry(h_res_vs_centrality[i_energy][0],energy_title[i_energy].Data(),"p");
+    //}
+    //leg_res->AddEntry((TObject*)0,"LAQGSM Au+Au","");
+    //leg_res->AddEntry(p_res_laqgsm_vs_centrality[0],energy_title[1].Data(),"l");
+    leg_res_energy->SetHeader("Au-Au, 11 GeV");
     leg_res_energy->AddEntry(p_res_vs_centrality[0][0],"true","p");
     leg_res_energy->AddEntry(h_res_vs_centrality[0][0],"reco","p");
 
     for (Int_t i=0;i<2;i++){
         c_res->cd(i+1);
-        p_res_vs_centrality[0][i]->GetYaxis()->SetRangeUser(res_range[i][0],res_range[i][0]);
+        p_res_vs_centrality[0][i]->GetYaxis()->SetRangeUser(res_range[i][0],res_range[i][1]);
         p_res_vs_centrality[0][i]->GetXaxis()->SetRangeUser(centrality_range[0],centrality_range[1]);
         p_res_vs_centrality[0][i]->Draw();
         h_res_vs_centrality[0][i]->Draw("PSAME,HIST");
-        p_res_vs_centrality[1][i]->Draw("SAME");
-        h_res_vs_centrality[1][i]->Draw("PSAME,HIST");
-        p_res_laqgsm_vs_centrality[i]->Draw("SAME,PHIST");
-        h_res_laqgsm_vs_centrality[i]->Draw("SAME,PHIST");
+        //p_res_vs_centrality[1][i]->Draw("SAME");
+        //h_res_vs_centrality[1][i]->Draw("PSAME,HIST");
+        //p_res_laqgsm_vs_centrality[i]->Draw("SAME");
+        //h_res_laqgsm_vs_centrality[i]->Draw("SAME");
         leg_res_energy->Draw();
         leg_res->Draw();
         //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
     }
-    c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/res_vs_centrality.eps","recreate");
-    c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/res_vs_centrality.png","recreate");
-    c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/res_vs_centrality.pdf","recreate");
-    c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/res_vs_centrality.C","recreate");
+    c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/res_vs_centrality.eps","recreate");
+    c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/res_vs_centrality.png","recreate");
+    c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/res_vs_centrality.pdf","recreate");
+    c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/res_vs_centrality.C","recreate");
+    
     //VN VS CENTRALITY
     //--------------------------------------------------------------------------------------------------------
     for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
@@ -710,8 +761,8 @@ void Draw_TDR()
         p_vn_vs_centrality_true[0][i]->GetXaxis()->SetRangeUser(centrality_range[0],centrality_range[1]);
         p_vn_vs_centrality_true[0][i]->Draw();
         p_vn_vs_centrality_reco[0][i]->Draw("PSAME,HIST");
-        p_vn_vs_centrality_true[1][i]->Draw("SAME");
-        p_vn_vs_centrality_reco[1][i]->Draw("PSAME,HIST");
+        //p_vn_vs_centrality_true[1][i]->Draw("SAME");
+        //p_vn_vs_centrality_reco[1][i]->Draw("PSAME,HIST");
         //p_vn_vs_centrality[0][i][2]->GetYaxis()->SetRangeUser(vn_cent_range[i][0],vn_cent_range[i][1]);
         //p_vn_vs_centrality[0][i][2]->GetXaxis()->SetRangeUser(centrality_range[0],centrality_range[1]);
         //p_vn_vs_centrality[0][i][2]->Draw();
@@ -722,10 +773,10 @@ void Draw_TDR()
         leg_cv_cent->Draw();
         //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
     }
-    c_vn_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_centrality.eps","recreate");
-    c_vn_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_centrality.png","recreate");
-    c_vn_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_centrality.pdf","recreate");
-    c_vn_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_centrality.C","recreate");
+    c_vn_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_centrality.eps","recreate");
+    c_vn_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_centrality.png","recreate");
+    c_vn_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_centrality.pdf","recreate");
+    c_vn_cent->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_centrality.C","recreate");
 
     //VN VS PT
     //--------------------------------------------------------------------------------------------------------
@@ -736,7 +787,7 @@ void Draw_TDR()
     for (Int_t i_energy=0; i_energy<n_energy; i_energy++){
     leg_vn_pt[i_energy] = new TLegend(0.22,0.68,0.48,0.86);
         for (Int_t i=0;i<4;i++){
-            leg_vn_type[i_energy][i] = new TLegend(0.22,0.44,0.5,0.67);
+            leg_vn_type[i_energy][i] = new TLegend(0.48,0.58,0.67,0.8);
         }
     }
 
@@ -808,10 +859,10 @@ void Draw_TDR()
         leg_vn_pt[i_energy]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
-        c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_pt_%i.eps",i_energy),"recreate");
-        c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_pt_%i.png",i_energy),"recreate");
-        c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_pt_%i.pdf",i_energy),"recreate");
-        c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_pt_%i.C",i_energy),"recreate");
+        c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_pt_%i.eps",i_energy),"recreate");
+        c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_pt_%i.png",i_energy),"recreate");
+        c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_pt_%i.pdf",i_energy),"recreate");
+        c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_pt_%i.C",i_energy),"recreate");
     }
 
     //VN VS RAPIDITY
@@ -912,17 +963,17 @@ void Draw_TDR()
         p_vn_true_vs_rapidity[i_energy][0][0][2]->Draw("SAME");
         line->DrawLine(rapidity_range[0],0.,rapidity_range[1],0.);
         if (i_energy==0) mc_vn_text->DrawLatexNDC(0.8,0.81,"p");
-        if (i_energy==1) mc_vn_text->DrawLatexNDC(0.8,0.72,"p");
+        //if (i_energy==1) mc_vn_text->DrawLatexNDC(0.8,0.72,"p");
         if (i_energy==0) mc_vn_text->DrawLatexNDC(0.3,0.85,"Au+Au 5 GeV");
-        if (i_energy==1) mc_vn_text->DrawLatexNDC(0.3,0.85,"Au+Au 11 GeV");
+        //if (i_energy==1) mc_vn_text->DrawLatexNDC(0.3,0.85,"Au+Au 11 GeV");
         mc_vn_text->DrawLatexNDC(0.3,0.81,"UrQMD");
         if (i_energy==0) mc_vn_text->DrawLatexNDC(0.8,0.42,"#color[4]{#bf{#pi}}");
-        if (i_energy==1) mc_vn_text->DrawLatexNDC(0.8,0.49,"#color[4]{#bf{#pi}}");
+        //if (i_energy==1) mc_vn_text->DrawLatexNDC(0.8,0.49,"#color[4]{#bf{#pi}}");
 
-        c_vn_rapidity[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_rapidity_%i.eps",i_energy),"recreate");
-        c_vn_rapidity[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_rapidity_%i.png",i_energy),"recreate");
-        c_vn_rapidity[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_rapidity_%i.pdf",i_energy),"recreate");
-        c_vn_rapidity[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final/vn_vs_rapidity_%i.C",i_energy),"recreate");
+        c_vn_rapidity[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_rapidity_%i.eps",i_energy),"recreate");
+        c_vn_rapidity[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_rapidity_%i.png",i_energy),"recreate");
+        c_vn_rapidity[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_rapidity_%i.pdf",i_energy),"recreate");
+        c_vn_rapidity[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_rapidity_%i.C",i_energy),"recreate");
     }
-
+//*/
 }
