@@ -103,7 +103,7 @@ void Draw_M2_PID(TString inFileName)
   TCanvas* c_TOF_eff = new TCanvas("c_TOF_eff", "TOF flag efficiency", 500, 500);
   c_TOF_eff -> cd();
   TLegend* l_TOF_eff = new TLegend(0.15,0.9,0.96,0.95);
-  l_TOF_eff -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events","C");
+  l_TOF_eff -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 2M events","C");
   hptTOFeff -> SetMarkerStyle(20);
   hptTOFeff -> SetMarkerSize(1.4);
   hptTOFeff -> SetTitle("");
@@ -117,6 +117,80 @@ void Draw_M2_PID(TString inFileName)
   c_TOF_eff -> SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/PID/TOF_eff_pt.pdf","recreate");
   c_TOF_eff -> SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/PID/TOF_eff_pt.eps","recreate");
   c_TOF_eff -> SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/PID/TOF_eff_pt.C","recreate");
+  
+  TH2F* hdEdxTotal        = (TH2F*) iFile -> Get("mass2/hPIDdEdxSigPTotal");
+  TH2F* hdEdx[PIDNparticles];
+  TLegend* l_dEdx[PIDNparticles+1];
+  TCanvas* c_dEdx[PIDNparticles+1];
+  for (int ParticleIterator=0; ParticleIterator < PIDNparticles; ParticleIterator++){
+    c_dEdx[ParticleIterator] = new TCanvas(Form("c_dEdx%i",ParticleIterator),Form("c_dEdx%i",ParticleIterator),500,500);
+    l_dEdx[ParticleIterator] = new TLegend(0.7,0.81,0.95,0.96);
+    hdEdx[ParticleIterator] = (TH2F*) iFile -> Get(Form("mass2/hPIDdEdxSigP%i",ParticleIterator));
+  }
+  c_dEdx[PIDNparticles] = new TCanvas(Form("c_dEdxTotal"),Form("c_dEdxTotal"),500,500);
+  l_dEdx[PIDNparticles] = new TLegend(0.7,0.81,0.95,0.96);
+  for (int ParticleIterator=0; ParticleIterator < PIDNparticles; ParticleIterator++){
+    c_dEdx[ParticleIterator] ->SetLogz();
+    c_dEdx[ParticleIterator] ->cd();
+    hdEdx[ParticleIterator] -> SetTitle("");
+    hdEdx[ParticleIterator] -> GetXaxis() -> SetTitle("Q*p, [GeV/c]");
+    hdEdx[ParticleIterator] -> GetYaxis() -> SetLabelSize(0.02);
+    l_dEdx[ParticleIterator]-> SetHeader(PIDparticleBins[ParticleIterator].Data(),"C");
+    hdEdx[ParticleIterator] -> Draw("colz");
+    l_dEdx[ParticleIterator]-> Draw();
+  }
+  c_dEdx[PIDNparticles] ->cd();
+  c_dEdx[PIDNparticles] ->SetLogz();
+  hdEdxTotal -> GetXaxis() -> SetTitle("Q*p, [GeV/c]");
+  hdEdxTotal -> SetTitle("");
+  hdEdxTotal -> GetYaxis() -> SetLabelSize(0.02);
+  l_dEdx[PIDNparticles]-> SetHeader("All","C");
+  hdEdxTotal -> Draw("colz");
+  l_dEdx[PIDNparticles]-> Draw();
+  for (int ParticleIterator=0; ParticleIterator < PIDNparticles+1; ParticleIterator++){
+    c_dEdx[ParticleIterator] ->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/PID/dEdx%i.png",ParticleIterator),"recreate");
+    c_dEdx[ParticleIterator] ->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/PID/dEdx%i.pdf",ParticleIterator),"recreate");
+    c_dEdx[ParticleIterator] ->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/PID/dEdx%i.eps",ParticleIterator),"recreate");
+    c_dEdx[ParticleIterator] ->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/PID/dEdx%i.C",ParticleIterator),"recreate");
+  }
+  
+  TH2F* hM2PTotal        = (TH2F*) iFile -> Get("hPIDm2MomTotal");
+  TH2F* hM2P[PIDNparticles];
+  TLegend* l_M2P[PIDNparticles+1];
+  TCanvas* c_M2P[PIDNparticles+1];
+  for (int ParticleIterator=0; ParticleIterator < PIDNparticles; ParticleIterator++){
+    c_M2P[ParticleIterator] = new TCanvas(Form("c_M2P%i",ParticleIterator),Form("c_M2P%i",ParticleIterator),500,500);
+    l_M2P[ParticleIterator] = new TLegend(0.7,0.81,0.95,0.96);
+    hM2P[ParticleIterator] = (TH2F*) iFile -> Get(Form("hPIDm2Mom%i",ParticleIterator));
+  }
+  c_M2P[PIDNparticles] = new TCanvas(Form("c_M2PTotal"),Form("c_M2PTotal"),500,500);
+  l_M2P[PIDNparticles] = new TLegend(0.7,0.81,0.95,0.96);
+  for (int ParticleIterator=0; ParticleIterator < PIDNparticles; ParticleIterator++){
+    c_M2P[ParticleIterator] ->SetLogz();
+    c_M2P[ParticleIterator] ->cd();
+    hM2P[ParticleIterator] -> SetTitle("");
+    hM2P[ParticleIterator] -> GetYaxis() -> SetLabelSize(0.02);
+    hM2P[ParticleIterator] -> GetXaxis() -> SetRangeUser(0.,5.);
+    l_M2P[ParticleIterator]-> SetHeader(PIDparticleBins[ParticleIterator].Data(),"C");
+    hM2P[ParticleIterator] -> Draw("colz");
+    l_M2P[ParticleIterator]-> Draw();
+  }
+  c_M2P[PIDNparticles] ->cd();
+  c_M2P[PIDNparticles] ->SetLogz();
+  hM2PTotal -> SetTitle("");
+  hM2PTotal -> GetXaxis() -> SetTitle("p, [GeV/c]");
+  hM2PTotal -> GetYaxis() -> SetTitle("m^{2}, [GeV/c^{2}]^{2}");
+  hM2PTotal -> GetYaxis() -> SetLabelSize(0.02);
+  hM2PTotal -> GetXaxis() -> SetRangeUser(0.,5.);
+  l_M2P[PIDNparticles]-> SetHeader("All","C");
+  hM2PTotal -> Draw("colz");
+  l_M2P[PIDNparticles]-> Draw();
+  for (int ParticleIterator=0; ParticleIterator < PIDNparticles+1; ParticleIterator++){
+    c_M2P[ParticleIterator] ->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/PID/M2vsP%i.png",ParticleIterator),"recreate");
+    c_M2P[ParticleIterator] ->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/PID/M2vsP%i.pdf",ParticleIterator),"recreate");
+    c_M2P[ParticleIterator] ->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/PID/M2vsP%i.eps",ParticleIterator),"recreate");
+    c_M2P[ParticleIterator] ->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/PID/M2vsP%i.C",ParticleIterator),"recreate");
+  }
   
   for (int ParticleIterator=0; ParticleIterator < PIDNparticles; ParticleIterator++){
     for (int PtIterator=0; PtIterator < PIDNpt; PtIterator++){
@@ -163,7 +237,7 @@ void Draw_M2_PID(TString inFileName)
       pads[iPid][iPads] -> GetFrame() -> SetFillColor(0);
       pads[iPid][iPads] -> Draw();
       
-      leg[iPid][iPads] = new TLegend(0.23,0.8,0.99,0.99);
+      leg[iPid][iPads] = new TLegend(0.15,0.8,0.99,0.99);
     }
   }
   
@@ -231,6 +305,9 @@ void Draw_M2_PID(TString inFileName)
       leg[iPid][iPads] -> SetHeader(HistTitle.Data(),"C");
       leg[iPid][iPads] -> AddEntry(hPIDm2Before[PidBin][PtBin][EtaBin],"No PID","l");
       leg[iPid][iPads] -> AddEntry(hPIDm2[PidBin][PtBin][EtaBin],"PID","l");
+      TLegendEntry *header = (TLegendEntry*)leg[iPid][iPads]->GetListOfPrimitives()->First();
+      //header->SetTextAlign(22);
+      header->SetTextSize(.035);
       //leg[iPid][iPads] -> AddEntry((TObject*)0,"","");
       //leg[iPid][iPads] -> AddEntry(hPIDm2PDGpion[PidBin][PtBin][EtaBin],"Pions (PDG)");
       //leg[iPid][iPads] -> AddEntry(hPIDm2PDGkaon[PidBin][PtBin][EtaBin],"Kaons (PDG)");
@@ -259,7 +336,7 @@ void Draw_M2_PID(TString inFileName)
   TLegend* l_pt = new TLegend(0.34,0.76,0.96,0.97);
   c_pt -> SetLogy();
   c_pt -> cd();
-  l_pt -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events");
+  l_pt -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 2M events");
   l_pt -> AddEntry(hCutPtRecoBefore, "before", "l");
   l_pt -> AddEntry(hCutPtRecoAfter, "after", "l");
   hCutPtRecoBefore -> SetTitle("");
@@ -275,7 +352,7 @@ void Draw_M2_PID(TString inFileName)
   TLegend* l_eta = new TLegend(0.18,0.80,0.96,0.97);
   c_eta -> SetLogy();
   c_eta -> cd();
-  l_eta -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events");
+  l_eta -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 2M events");
   l_eta -> AddEntry(hCutPtRecoBefore, "before selection", "l");
   l_eta -> AddEntry(hCutPtRecoAfter, "after selection", "l");
   hCutEtaRecoBefore -> SetTitle("");
@@ -291,9 +368,10 @@ void Draw_M2_PID(TString inFileName)
   TLegend* l_hits = new TLegend(0.18,0.76,0.87,0.97);
   c_hits -> SetLogy();
   c_hits -> cd();
-  l_hits -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events");
+  l_hits -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 2M events");
   l_hits -> AddEntry(hCutPtRecoBefore, "before selection", "l");
   l_hits -> AddEntry(hCutPtRecoAfter, "after selection", "l");
+  hCutHitsBefore -> GetYaxis() -> SetRangeUser(1.,1e11);
   hCutHitsBefore -> SetTitle("");
   hCutHitsAfter  -> SetLineColor(2);
   hCutHitsBefore -> Draw();

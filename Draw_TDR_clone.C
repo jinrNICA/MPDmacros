@@ -11,10 +11,10 @@ const Int_t marker_res_color[]={1,2,4};
 const Int_t marker_eff_color[]={4,8};
 const Int_t line_pt_style[]   ={1,2,9};
 
-const Float_t latex_coord[]     ={0.45,0.85};
-const TString latex_title       =TString("UrQMD, Au+Au");
+const Float_t latex_coord[]     ={0.39,0.85};
+const TString latex_title       =TString("UrQMD, Au+Au, 4M");
 
-const Float_t range_vn_pt[2][2]      ={{-0.08,0.18},{-0.019,0.15}};
+const Float_t range_vn_pt[2][2]      ={{-0.059,0.129},{-0.019,0.139}};
 const Float_t range_vn_rapidity[2][2]={{-0.22,0.22},{0.,0.099}};
 const Float_t rapidity_range[]       ={-1.4,1.4};
 const Float_t pt_range[]             ={0.21,2.};
@@ -60,9 +60,9 @@ void Draw_TDR_clone()
     //in_res_true_file[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-5-gev.root","read");
     //in_res_true_file_HP[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-5-gev_HP.root","read");
     //in_res_reco_file[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-fit-5-gev.root","read");
-    in_res_true_file[0] = new TFile("/home/peter/res_hist-11gev.root","read");
+    in_res_true_file[0] = new TFile("/home/peter/res_hist-11gev-4M.root","read");
     //in_res_true_file_HP[0] = new TFile("/home/peter/res_hist-11gev.root","read");
-    in_res_reco_file[0] = new TFile("/home/peter/res-fit-11gev.root","read");
+    in_res_reco_file[0] = new TFile("/home/peter/res-fit-11gev-4M.root","read");
     //in_res_true_file[1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-11-gev.root","read");
     //in_res_true_file[1] = new TFile("/home/peter/res_hist-11gev.root","read");
     ////in_res_true_file_HP[1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-11-gev_HP.root","read");
@@ -73,9 +73,9 @@ void Draw_TDR_clone()
     //in_flow_file[0][0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-proton.root","read");
     //in_flow_file[0][1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-kaon.root","read");
     //in_flow_file[0][2] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-5-gev-pion.root","read");
-    in_flow_file[0][0] = new TFile("/home/peter/flow-11gev-protons_noBirkPDG.root","read");
-    in_flow_file[0][1] = new TFile("/home/peter/flow-11gev-kaons_noBirkPDG.root","read");
-    in_flow_file[0][2] = new TFile("/home/peter/flow-11gev-pions_noBirkPDG.root","read");
+    in_flow_file[0][0] = new TFile("/home/peter/flow-11gev-protons4M.root","read");
+    in_flow_file[0][1] = new TFile("/home/peter/flow-11gev-kaons4M.root","read");
+    in_flow_file[0][2] = new TFile("/home/peter/flow-11gev-pions4M.root","read");
     //in_flow_file[1][0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-proton.root","read");
     //in_flow_file[1][0] = new TFile("/home/peter/flow-11gev-protons_noBirkPDG.root","read");
     ////in_flow_file[1][1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-kaon.root","read");
@@ -83,35 +83,35 @@ void Draw_TDR_clone()
     ////in_flow_file[1][2] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-pion.root","read");
     //in_flow_file[1][2] = new TFile("/home/peter/flow-11gev-pions_noBirkPDG.root","read");
     
-    //TFile* inStyle = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/my_style.root","READ");
+    TFile* inStyle = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/my_style.root","READ");
     
-    //TStyle* style = (TStyle*) inStyle->Get("style");
+    TStyle* style = (TStyle*) inStyle->Get("style");
     
-    TStyle* style = new TStyle("Default","Default style");
-    style->SetTitleSize(0.05,"X");
-    style->SetTitleSize(0.05,"Y");
-    style->SetTitleOffset(1.15,"Y");
-    style->SetTitleOffset(0.9,"X");
-    style->SetFrameLineWidth(2);
-    style->SetFrameFillColor(0);
-    style->SetPadColor(0);
-    style->SetLabelSize(0.04,"X");
-    style->SetLabelSize(0.04,"Y");
-    style->SetPadTopMargin(0.1);
-    style->SetPadBottomMargin(0.12);
-    style->SetPadLeftMargin(0.12);
-    style->SetPadTopMargin(0.02);
-    style->SetPadRightMargin(0.03);
-    style->SetMarkerSize(1.2);
-    style->SetErrorX(0);
-    style->SetOptStat(0);
-    style->SetCanvasColor(0);
-    style->SetTitleFillColor(0);
-    style->SetTitleBorderSize(0);
-    style->SetCanvasBorderMode(0);
-    style->SetLegendBorderSize(0);
-    style->SetPadBorderMode(0);
-    style->SetLineWidth(2);
+    //TStyle* style = new TStyle("Default","Default style");
+    //style->SetTitleSize(0.05,"X");
+    //style->SetTitleSize(0.05,"Y");
+    //style->SetTitleOffset(1.15,"Y");
+    //style->SetTitleOffset(0.9,"X");
+    //style->SetFrameLineWidth(2);
+    //style->SetFrameFillColor(0);
+    //style->SetPadColor(0);
+    //style->SetLabelSize(0.04,"X");
+    //style->SetLabelSize(0.04,"Y");
+    //style->SetPadTopMargin(0.1);
+    //style->SetPadBottomMargin(0.12);
+    //style->SetPadLeftMargin(0.12);
+    //style->SetPadTopMargin(0.02);
+    //style->SetPadRightMargin(0.03);
+    //style->SetMarkerSize(1.2);
+    //style->SetErrorX(0);
+    //style->SetOptStat(0);
+    //style->SetCanvasColor(0);
+    //style->SetTitleFillColor(0);
+    //style->SetTitleBorderSize(0);
+    //style->SetCanvasBorderMode(0);
+    //style->SetLegendBorderSize(0);
+    //style->SetPadBorderMode(0);
+    //style->SetLineWidth(2);
 
     style->cd();
     
@@ -393,6 +393,9 @@ void Draw_TDR_clone()
 
             p_res_vs_centrality[i_energy][i_harm]->SetMarkerStyle(marker_flow_stl[0][i_energy]);
             h_res_vs_centrality[i_energy][i_harm]->SetMarkerStyle(marker_flow_stl[1][i_energy]);
+            
+            p_res_vs_centrality[i_energy][i_harm]->SetMarkerSize(1.);
+            h_res_vs_centrality[i_energy][i_harm]->SetMarkerSize(1.1);
 
             p_res_vs_centrality[i_energy][i_harm]->SetMarkerColor(marker_res_color[i_energy]);
             h_res_vs_centrality[i_energy][i_harm]->SetMarkerColor(marker_res_color[i_energy]);
@@ -439,6 +442,9 @@ void Draw_TDR_clone()
                     p_vn_reco_vs_rapidity[i_energy][i_harm][i_cent][i_sort] ->SetMarkerStyle(marker_flow_stl[1][i_sort]);
                     p_vn_true_vs_pt[i_energy][i_harm][i_cent][i_sort]       ->SetMarkerStyle(marker_flow_stl[0][i_sort]);
                     p_vn_true_vs_rapidity[i_energy][i_harm][i_cent][i_sort] ->SetMarkerStyle(marker_flow_stl[0][i_sort]);
+                    
+                    p_vn_reco_vs_pt[i_energy][i_harm][i_cent][i_sort]       ->SetMarkerSize(1.1);
+                    p_vn_reco_vs_rapidity[i_energy][i_harm][i_cent][i_sort] ->SetMarkerSize(1.1);
 
                     p_vn_reco_vs_pt[i_energy][i_harm][i_cent][i_sort]       ->SetMarkerColor(marker_res_color[i_sort]);
                     p_vn_reco_vs_rapidity[i_energy][i_harm][i_cent][i_sort] ->SetMarkerColor(marker_res_color[i_sort]);
@@ -469,7 +475,7 @@ void Draw_TDR_clone()
     h_mult[0]->SetTitle("");
     h_mult[0]->Draw("");
     //h_mult[1]->Draw("SAME");
-    leg_mult->SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events","C");
+    leg_mult->SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 2M events","C");
     leg_mult->AddEntry(h_mult[0],energy_title[0].Data(),"l");
     //leg_mult->AddEntry(h_mult[1],energy_title[1].Data(),"l");
     leg_mult->Draw();
@@ -493,7 +499,7 @@ void Draw_TDR_clone()
     c_b_cent->cd();
     p_resolution_vs_centrality[0]->Draw("P");
     //p_resolution_vs_centrality[1]->Draw("P,SAME");
-    leg_sigm->SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events","C");
+    leg_sigm->SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 2M events","C");
     leg_sigm->AddEntry(p_resolution_vs_centrality[0],energy_title[0].Data(),"p");
     //leg_sigm->AddEntry(p_resolution_vs_centrality[1],energy_title[1].Data(),"p");
     leg_sigm->Draw();
@@ -691,13 +697,15 @@ void Draw_TDR_clone()
 
     leg_res = new TLegend(0.23,0.69,0.60,0.87);
 
-    leg_res_energy = new TLegend(0.66,0.69,0.85,0.87);
+    leg_res_energy = new TLegend(0.65,0.69,0.85,0.87);
 
     c_res->Divide(2,1);
 
-    leg_res->AddEntry((TObject*)0,"UrQMD, GEANT3, 1M events","");
+    leg_res->SetHeader("UrQMD, GEANT3, 4M events","C");
     leg_res->AddEntry((TObject*)0,"","");
     leg_res->AddEntry((TObject*)0,"","");
+    TLegendEntry *headerRes = (TLegendEntry*)leg_res->GetListOfPrimitives()->First();
+    headerRes->SetTextSize(.035);
     //for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
         //leg_res->AddEntry(h_res_vs_centrality[i_energy][0],energy_title[i_energy].Data(),"p");
     //}
@@ -705,7 +713,11 @@ void Draw_TDR_clone()
     //leg_res->AddEntry(p_res_laqgsm_vs_centrality[0],energy_title[1].Data(),"l");
     leg_res_energy->SetHeader("Au-Au, 11 GeV");
     leg_res_energy->AddEntry(p_res_vs_centrality[0][0],"true","p");
+    leg_res_energy->GetEntry()->SetTextSize(.035);
     leg_res_energy->AddEntry(h_res_vs_centrality[0][0],"reco","p");
+    leg_res_energy->GetEntry()->SetTextSize(.035);
+    TLegendEntry *headerRes1 = (TLegendEntry*)leg_res_energy->GetListOfPrimitives()->First();
+    headerRes1->SetTextSize(.035);
 
     for (Int_t i=0;i<2;i++){
         c_res->cd(i+1);
@@ -787,7 +799,7 @@ void Draw_TDR_clone()
     for (Int_t i_energy=0; i_energy<n_energy; i_energy++){
     leg_vn_pt[i_energy] = new TLegend(0.22,0.68,0.48,0.86);
         for (Int_t i=0;i<4;i++){
-            leg_vn_type[i_energy][i] = new TLegend(0.48,0.58,0.67,0.8);
+            leg_vn_type[i_energy][i] = new TLegend(0.38,0.6,0.67,0.82);
         }
     }
 
@@ -800,6 +812,7 @@ void Draw_TDR_clone()
         leg_vn_pt[i_energy]->AddEntry(p_vn_true_vs_pt[i_energy][0][0][0],"true","p");
         leg_vn_pt[i_energy]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"reco","p");
         p_vn_reco_vs_pt[i_energy][0][0][0]->GetXaxis()->SetRangeUser(pt_range[0],pt_range[1]);
+        p_vn_reco_vs_pt[i_energy][0][0][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_pt[i_energy][0][0][0]->Draw();
         p_vn_reco_vs_pt[i_energy][0][0][1]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][0][0][2]->Draw("SAME");
@@ -807,29 +820,35 @@ void Draw_TDR_clone()
         p_vn_true_vs_pt[i_energy][0][0][1]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][0][2]->Draw("SAME");
         leg_vn_type[i_energy][0]->SetHeader("10-20%");
-        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"p","p");
-        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][1],"K","p");
-        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][2],"#pi","p");
-        leg_vn_type[i_energy][0]->Draw();
+        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"p, (TOF+TPC) PID"        ,"p");
+        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][1],"K^{+}, (TOF+TPC) PID"    ,"p");
+        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
+        TLegendEntry *headerPt = (TLegendEntry*)leg_vn_type[i_energy][0]->GetListOfPrimitives()->First();
+        headerPt->SetTextSize(.035);
         leg_vn_pt[i_energy]->Draw();
+        leg_vn_type[i_energy][0]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         c_vn_pt[i_energy]->cd(2);
         p_vn_reco_vs_pt[i_energy][0][1][0]->GetXaxis()->SetRangeUser(pt_range[0],pt_range[1]);
+        p_vn_reco_vs_pt[i_energy][0][1][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_pt[i_energy][0][1][0]->Draw();
         p_vn_reco_vs_pt[i_energy][0][1][1]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][0][1][2]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][1][0]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][1][1]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][1][2]->Draw("SAME");
-        leg_vn_type[i_energy][1]->SetHeader("40-50%");
-        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][0],"p","p");
-        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][1],"K","p");
-        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][2],"#pi","p");
-        leg_vn_type[i_energy][1]->Draw();
+        leg_vn_type[i_energy][1]->SetHeader("20-40%");
+        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][0],"p, (TOF+TPC) PID"        ,"p");
+        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][1],"K^{+}, (TOF+TPC) PID"    ,"p");
+        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
+        headerPt = (TLegendEntry*)leg_vn_type[i_energy][1]->GetListOfPrimitives()->First();
+        headerPt->SetTextSize(.035);
         leg_vn_pt[i_energy]->Draw();
+        leg_vn_type[i_energy][1]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         c_vn_pt[i_energy]->cd(3);
         p_vn_reco_vs_pt[i_energy][1][0][0]->GetXaxis()->SetRangeUser(pt_range[0],pt_range[1]);
+        p_vn_reco_vs_pt[i_energy][1][0][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_pt[i_energy][1][0][0]->Draw();
         p_vn_reco_vs_pt[i_energy][1][0][1]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][1][0][2]->Draw("SAME");
@@ -837,26 +856,31 @@ void Draw_TDR_clone()
         p_vn_true_vs_pt[i_energy][1][0][1]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][0][2]->Draw("SAME");
         leg_vn_type[i_energy][2]->SetHeader("10-20%");
-        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][0],"p","p");
-        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][1],"K","p");
-        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][2],"#pi","p");
-        leg_vn_type[i_energy][2]->Draw();
+        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][0],"p, (TOF+TPC) PID"        ,"p");
+        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][1],"K^{+}, (TOF+TPC) PID"    ,"p");
+        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
+        headerPt = (TLegendEntry*)leg_vn_type[i_energy][2]->GetListOfPrimitives()->First();
+        headerPt->SetTextSize(.035);
         leg_vn_pt[i_energy]->Draw();
+        leg_vn_type[i_energy][2]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         c_vn_pt[i_energy]->cd(4);
         p_vn_reco_vs_pt[i_energy][1][1][0]->GetXaxis()->SetRangeUser(pt_range[0],pt_range[1]);
+        p_vn_reco_vs_pt[i_energy][1][1][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_pt[i_energy][1][1][0]->Draw();
         p_vn_reco_vs_pt[i_energy][1][1][1]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][1][1][2]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][1][0]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][1][1]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][1][2]->Draw("SAME");
-        leg_vn_type[i_energy][3]->SetHeader("40-50%");
-        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][0],"p","p");
-        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][1],"K","p");
-        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][2],"#pi","p");
-        leg_vn_type[i_energy][3]->Draw();
+        leg_vn_type[i_energy][3]->SetHeader("20-40%");
+        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][0],"p, (TOF+TPC) PID"        ,"p");
+        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][1],"K^{+}, (TOF+TPC) PID"    ,"p");
+        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
+        headerPt = (TLegendEntry*)leg_vn_type[i_energy][3]->GetListOfPrimitives()->First();
+        headerPt->SetTextSize(.035);
         leg_vn_pt[i_energy]->Draw();
+        leg_vn_type[i_energy][3]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
         c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_pt_%i.eps",i_energy),"recreate");
@@ -881,7 +905,7 @@ void Draw_TDR_clone()
     for (Int_t i_energy=0; i_energy<n_energy; i_energy++){
     leg_vn_rapidity[i_energy] = new TLegend(0.22,0.68,0.48,0.86);
         for (Int_t i=0;i<4;i++){
-            leg_vn_type_rapidity[i_energy][i] = new TLegend(0.48,0.58,0.67,0.8);
+            leg_vn_type_rapidity[i_energy][i] = new TLegend(0.38,0.6,0.67,0.82);
         }
     }
 
@@ -894,6 +918,7 @@ void Draw_TDR_clone()
         leg_vn_rapidity[i_energy]->AddEntry(p_vn_true_vs_rapidity[i_energy][0][0][0],"true","p");
         leg_vn_rapidity[i_energy]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][0][0],"reco","p");
         p_vn_reco_vs_rapidity[i_energy][0][0][0]->GetXaxis()->SetRangeUser(rapidity_range[0],rapidity_range[1]);
+        p_vn_reco_vs_rapidity[i_energy][0][0][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_rapidity[i_energy][0][0][0]->Draw();
         p_vn_reco_vs_rapidity[i_energy][0][0][1]->Draw("SAME");
         p_vn_reco_vs_rapidity[i_energy][0][0][2]->Draw("SAME");
@@ -901,31 +926,37 @@ void Draw_TDR_clone()
         p_vn_true_vs_rapidity[i_energy][0][0][1]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][0][0][2]->Draw("SAME");
         leg_vn_type_rapidity[i_energy][0]->SetHeader("10-20%");
-        leg_vn_type_rapidity[i_energy][0]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][0][0],"p","p");
-        leg_vn_type_rapidity[i_energy][0]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][0][1],"K","p");
-        leg_vn_type_rapidity[i_energy][0]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][0][2],"#pi","p");
-        leg_vn_type_rapidity[i_energy][0]->Draw();
+        leg_vn_type_rapidity[i_energy][0]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][0][0],"p, (TOF+TPC) PID"        ,"p");
+        leg_vn_type_rapidity[i_energy][0]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][0][1],"K^{+}, (TOF+TPC) PID"    ,"p");
+        leg_vn_type_rapidity[i_energy][0]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][0][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
+        TLegendEntry *headerEta = (TLegendEntry*)leg_vn_type_rapidity[i_energy][0]->GetListOfPrimitives()->First();
+        headerEta->SetTextSize(.035);
         leg_vn_rapidity[i_energy]->Draw();
+        leg_vn_type_rapidity[i_energy][0]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         line->DrawLine(rapidity_range[0],0.,rapidity_range[1],0.);
         c_vn_rapidity[i_energy]->cd(2);
         p_vn_reco_vs_rapidity[i_energy][0][1][0]->GetXaxis()->SetRangeUser(rapidity_range[0],rapidity_range[1]);
+        p_vn_reco_vs_rapidity[i_energy][0][1][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_rapidity[i_energy][0][1][0]->Draw();
         p_vn_reco_vs_rapidity[i_energy][0][1][1]->Draw("SAME");
         p_vn_reco_vs_rapidity[i_energy][0][1][2]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][0][1][0]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][0][1][1]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][0][1][2]->Draw("SAME");
-        leg_vn_type_rapidity[i_energy][1]->SetHeader("40-50%");
-        leg_vn_type_rapidity[i_energy][1]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][1][0],"p","p");
-        leg_vn_type_rapidity[i_energy][1]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][1][1],"K","p");
-        leg_vn_type_rapidity[i_energy][1]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][1][2],"#pi","p");
-        leg_vn_type_rapidity[i_energy][1]->Draw();
+        leg_vn_type_rapidity[i_energy][1]->SetHeader("20-40%");
+        leg_vn_type_rapidity[i_energy][1]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][1][0],"p, (TOF+TPC) PID"        ,"p");
+        leg_vn_type_rapidity[i_energy][1]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][1][1],"K^{+}, (TOF+TPC) PID"    ,"p");
+        leg_vn_type_rapidity[i_energy][1]->AddEntry(p_vn_reco_vs_rapidity[i_energy][0][1][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
+        headerEta = (TLegendEntry*)leg_vn_type_rapidity[i_energy][1]->GetListOfPrimitives()->First();
+        headerEta->SetTextSize(.035);
         leg_vn_rapidity[i_energy]->Draw();
+        leg_vn_type_rapidity[i_energy][1]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         line->DrawLine(rapidity_range[0],0.,rapidity_range[1],0.);
         c_vn_rapidity[i_energy]->cd(3);
         p_vn_reco_vs_rapidity[i_energy][1][0][0]->GetXaxis()->SetRangeUser(rapidity_range[0],rapidity_range[1]);
+        p_vn_reco_vs_rapidity[i_energy][1][0][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_rapidity[i_energy][1][0][0]->Draw();
         p_vn_reco_vs_rapidity[i_energy][1][0][1]->Draw("SAME");
         p_vn_reco_vs_rapidity[i_energy][1][0][2]->Draw("SAME");
@@ -933,31 +964,37 @@ void Draw_TDR_clone()
         p_vn_true_vs_rapidity[i_energy][1][0][1]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][1][0][2]->Draw("SAME");
         leg_vn_type_rapidity[i_energy][2]->SetHeader("10-20%");
-        leg_vn_type_rapidity[i_energy][2]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][0][0],"p","p");
-        leg_vn_type_rapidity[i_energy][2]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][0][1],"K","p");
-        leg_vn_type_rapidity[i_energy][2]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][0][2],"#pi","p");
-        leg_vn_type_rapidity[i_energy][2]->Draw();
+        leg_vn_type_rapidity[i_energy][2]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][0][0],"p, (TOF+TPC) PID"        ,"p");
+        leg_vn_type_rapidity[i_energy][2]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][0][1],"K^{+}, (TOF+TPC) PID"    ,"p");
+        leg_vn_type_rapidity[i_energy][2]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][0][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
+        headerEta = (TLegendEntry*)leg_vn_type_rapidity[i_energy][2]->GetListOfPrimitives()->First();
+        headerEta->SetTextSize(.035);
         leg_vn_rapidity[i_energy]->Draw();
+        leg_vn_type_rapidity[i_energy][2]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         c_vn_rapidity[i_energy]->cd(4);
         p_vn_reco_vs_rapidity[i_energy][1][1][0]->GetXaxis()->SetRangeUser(rapidity_range[0],rapidity_range[1]);
+        p_vn_reco_vs_rapidity[i_energy][1][1][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_rapidity[i_energy][1][1][0]->Draw();
         p_vn_reco_vs_rapidity[i_energy][1][1][1]->Draw("SAME");
         p_vn_reco_vs_rapidity[i_energy][1][1][2]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][1][1][0]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][1][1][1]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][1][1][2]->Draw("SAME");
-        leg_vn_type_rapidity[i_energy][3]->SetHeader("40-50%");
-        leg_vn_type_rapidity[i_energy][3]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][1][0],"p","p");
-        leg_vn_type_rapidity[i_energy][3]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][1][1],"K","p");
-        leg_vn_type_rapidity[i_energy][3]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][1][2],"#pi","p");
-        leg_vn_type_rapidity[i_energy][3]->Draw();
+        leg_vn_type_rapidity[i_energy][3]->SetHeader("20-40%");
+        leg_vn_type_rapidity[i_energy][3]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][1][0],"p, (TOF+TPC) PID"        ,"p");
+        leg_vn_type_rapidity[i_energy][3]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][1][1],"K^{+}, (TOF+TPC) PID"    ,"p");
+        leg_vn_type_rapidity[i_energy][3]->AddEntry(p_vn_reco_vs_rapidity[i_energy][1][1][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
+        headerEta = (TLegendEntry*)leg_vn_type_rapidity[i_energy][3]->GetListOfPrimitives()->First();
+        headerEta->SetTextSize(.035);
         leg_vn_rapidity[i_energy]->Draw();
+        leg_vn_type_rapidity[i_energy][3]->Draw();
         text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
         c_vn_mc_y[i_energy] = new TCanvas(Form("c_vn_mc_y%i",i_energy),Form("vn vs y mc %i",i_energy),500,500);
         c_vn_mc_y[i_energy]->cd();
         p_vn_true_vs_rapidity[i_energy][0][0][0]->GetXaxis()->SetRangeUser(rapidity_range[0],rapidity_range[1]);
+        p_vn_reco_vs_rapidity[i_energy][0][0][0]->GetXaxis()->SetNdivisions(5);
         p_vn_true_vs_rapidity[i_energy][0][0][0]->Draw("");
         p_vn_true_vs_rapidity[i_energy][0][0][1]->Draw("SAME");
         p_vn_true_vs_rapidity[i_energy][0][0][2]->Draw("SAME");

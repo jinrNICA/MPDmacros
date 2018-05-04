@@ -8,7 +8,7 @@ const Int_t marker_res_color[]={1,2,4};
 const Float_t res_range[2][2]        ={{0.21,1.2},{0.01,0.96}};
 const Int_t   centrality_range[]     ={0,79};
 const std::string particle_name [] = {"All", "Pions", "Protons", "Kaons"};
-const std::pair<double, double>   eta_spectreY [] ={{0.9e5,0.9e7},{5e4,0.9e6},{2e4,0.5e6},{5e3,0.5e6}};
+const std::pair<double, double>   eta_spectreY [] ={{0.9e5,0.9e7},{5e4,0.6e7},{2e4,0.5e6},{5e3,0.5e6}};
 const std::pair<double, double>   pt_spectreY [] ={{2e1,5e8},{1e1,0.9e8},{1e2,0.9e8},{1e1,0.9e7}};
 
 void DrawAnaNote(){
@@ -78,8 +78,8 @@ void DrawAnaNote(){
   TH1F*     h_n_hits_before[n_energy];
   TH1F*     h_n_hits_after[n_energy];
   
-  in_res_true_file[0] = new TFile("/home/peter/res_hist-11gev.root","read");
-  in_res_reco_file[0] = new TFile("/home/peter/res-fit-11gev.root","read");
+  in_res_true_file[0] = new TFile("/home/peter/res_hist-11gev-4M.root","read");
+  in_res_reco_file[0] = new TFile("/home/peter/res-fit-11gev-4M.root","read");
   in_flow_file[0][0] = new TFile("/home/peter/flow-11gev-protons_noBirkPDG.root","read");
   in_flow_file[0][1] = new TFile("/home/peter/flow-11gev-kaons_noBirkPDG.root","read");
   in_flow_file[0][2] = new TFile("/home/peter/flow-11gev-pions_noBirkPDG.root","read");
@@ -158,7 +158,7 @@ void DrawAnaNote(){
   for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
     c_hits[i_energy] = new TCanvas(Form("c_hits%i",i_energy),Form("c_hits%i",i_energy),500,500);
     leg_hits_spectre[i_energy] = new TLegend(0.18,0.78,0.97,0.97);
-    leg_hits_spectre[i_energy] -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events","C");
+    leg_hits_spectre[i_energy] -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 4M events","C");
     leg_hits_spectre[i_energy] -> AddEntry(h_n_hits_before[i_energy],"before selection","l");
     leg_hits_spectre[i_energy] -> AddEntry(h_n_hits_after[i_energy],"after selection","l");
     c_hits[i_energy] -> cd();
@@ -317,7 +317,7 @@ void DrawAnaNote(){
   for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
     c_pt[i_energy] = new TCanvas(Form("c_pt%i",i_energy),Form("c_pt%i",i_energy),500,500);
     leg_pt_spectre[i_energy] = new TLegend(0.18,0.78,0.97,0.97);
-    leg_pt_spectre[i_energy] -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events","C");
+    leg_pt_spectre[i_energy] -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 4M events","C");
     leg_pt_spectre[i_energy] -> AddEntry(h_pt_reco_before[i_energy][0],"before selection","l");
     leg_pt_spectre[i_energy] -> AddEntry(h_pt_reco_after[i_energy][0],"after selection","l");
     c_pt[i_energy] -> cd();
@@ -343,7 +343,7 @@ void DrawAnaNote(){
   for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
     c_eta[i_energy] = new TCanvas(Form("c_eta%i",i_energy),Form("c_eta%i",i_energy),500,500);
     leg_eta_spectre[i_energy] = new TLegend(0.18,0.78,0.97,0.97);
-    leg_eta_spectre[i_energy] -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 1M events","C");
+    leg_eta_spectre[i_energy] -> SetHeader("Au-Au #sqrt{s_{NN}} = 11 GeV, UrQMD, GEANT3, 4M events","C");
     leg_eta_spectre[i_energy] -> AddEntry(h_eta_reco_before[i_energy][0],"before selection","l");
     leg_eta_spectre[i_energy] -> AddEntry(h_eta_reco_after[i_energy][0],"after selection","l");
     c_eta[i_energy] -> cd();
@@ -493,7 +493,7 @@ void DrawAnaNote(){
 
   leg_res_energy = new TLegend(0.66,0.77,0.85,0.95);
 
-  leg_res->AddEntry((TObject*)0,"UrQMD, GEANT3, 1M events","");
+  leg_res->AddEntry((TObject*)0,"UrQMD, GEANT3, 4M events","");
   leg_res->AddEntry((TObject*)0,"","");
   leg_res->AddEntry((TObject*)0,"","");
   //for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
