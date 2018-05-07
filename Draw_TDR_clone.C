@@ -3,24 +3,25 @@ const Int_t n_energy     = 1;
 const Int_t n_sorts      = 3;
 const Int_t n_centrality = 2;
 const Int_t n_proj       = 3;
-const Int_t marker_res_style[]={24,20};
+const Int_t marker_res_style[]={24,20,26,22};
 const Int_t marker_flow_stl[2][3] ={{20,21,22},{24,25,26}};
 const Int_t marker_dca_style[]={20,21,22};
 const Int_t marker_eff_style[]={20,22,24,26};
-const Int_t marker_res_color[]={1,2,4};
+const Int_t marker_res_color[]={1,2,4,2};
 const Int_t marker_eff_color[]={4,8};
 const Int_t line_pt_style[]   ={1,2,9};
 
-const Float_t latex_coord[]     ={0.39,0.85};
-const TString latex_title       =TString("UrQMD, Au+Au, 4M");
+const Float_t latex_coord[]     ={0.49,0.85};
+const TString latex_title       =TString("Au+Au, #sqrt{s_{NN}}=11 GeV, GEANT3, UrQMD, 4M events");
+const TString vn_Title[]        = {TString("Au-Au, #sqrt{s_{NN}}=11 GeV, 10-20%, GEANT3, UrQMD"), TString("Au-Au, #sqrt{s_{NN}}=11 GeV, 20-40%, GEANT3, UrQMD")};
 
-const Float_t range_vn_pt[2][2]      ={{-0.059,0.129},{-0.019,0.139}};
+const Float_t range_vn_pt[2][2]      ={{-0.042,0.078},{0.,0.099}};
 const Float_t range_vn_rapidity[2][2]={{-0.22,0.22},{0.,0.099}};
 const Float_t rapidity_range[]       ={-1.4,1.4};
 const Float_t pt_range[]             ={0.21,2.};
 const Float_t pt_track_range[]       ={0.,3.1};
 const Float_t eta_track_range[]      ={-1.9,1.9};
-const Float_t res_range[2][2]        ={{0.21,1.2},{0.01,0.96}};
+const Float_t res_range[2][2]        ={{0.21,1.19},{0.01,0.96}};
 const Float_t vn_cent_range[2][2]    ={{-0.07,0.01},{-0.035,0.045}};
 const Float_t dca_x_range[]          ={-3.1,3.1};
 const Float_t mult_range[]           ={0,1800};
@@ -55,7 +56,7 @@ void Draw_TDR_clone()
     TFile* in_res_true_file_HP[n_energy];
     TFile* in_res_reco_file[n_energy];
 
-    //TFile* in_res_laqgsm_file = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/LAQGSM.root","read");
+    TFile* in_res_laqgsm_file = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/LAQGSM.root","read");
 
     //in_res_true_file[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-5-gev.root","read");
     //in_res_true_file_HP[0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/res-5-gev_HP.root","read");
@@ -189,12 +190,12 @@ void Draw_TDR_clone()
 
     //GET HISTOGRAMS FROM FILES
     //--------------------------------------------------------------------------------------------------------
-    //for (Int_t i_harm=0; i_harm<n_harm; i_harm++){
-        //p_res_laqgsm_vs_centrality[i_harm] = (TH1F*) in_res_laqgsm_file->Get(Form("p_ResPsi_vs_b_flipped[%i][%i][%i]",i_harm,0,1));
-        //p_res_laqgsm_vs_centrality[i_harm]->SetName(Form("p_res_laqgsm_vs_centrality%i",i_harm));
-        //h_res_laqgsm_vs_centrality[i_harm] = (TH1F*) in_res_laqgsm_file->Get(Form("p_true_Res_vs_b_flipped[%i][%i][%i]",i_harm,0,1));
-        //h_res_laqgsm_vs_centrality[i_harm]->SetName(Form("h_res_laqgsm_vs_centrality%i",i_harm));
-    //}
+    for (Int_t i_harm=0; i_harm<n_harm; i_harm++){
+        p_res_laqgsm_vs_centrality[i_harm] = (TH1F*) in_res_laqgsm_file->Get(Form("p_ResPsi_vs_b_flipped[%i][%i][%i]",i_harm,0,1));
+        p_res_laqgsm_vs_centrality[i_harm]->SetName(Form("p_res_laqgsm_vs_centrality%i",i_harm));
+        h_res_laqgsm_vs_centrality[i_harm] = (TH1F*) in_res_laqgsm_file->Get(Form("p_true_Res_vs_b_flipped[%i][%i][%i]",i_harm,0,1));
+        h_res_laqgsm_vs_centrality[i_harm]->SetName(Form("h_res_laqgsm_vs_centrality%i",i_harm));
+    }
 
     for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
         h_n_hits_before[i_energy] = (TH1F*) in_res_true_file[i_energy]->Get(Form("h_nhits_TPC"));
@@ -368,16 +369,16 @@ void Draw_TDR_clone()
         }
     }
 
-    //for (Int_t i_harm=0; i_harm<n_harm; i_harm++){
-        //p_res_laqgsm_vs_centrality[i_harm]->SetXTitle("Centrality, %");
-        //h_res_laqgsm_vs_centrality[i_harm]->SetXTitle("Centrality, %");
+    for (Int_t i_harm=0; i_harm<n_harm; i_harm++){
+        p_res_laqgsm_vs_centrality[i_harm]->SetXTitle("Centrality, %");
+        h_res_laqgsm_vs_centrality[i_harm]->SetXTitle("Centrality, %");
 
-        //p_res_laqgsm_vs_centrality[i_harm]->SetMarkerStyle(marker_res_style[0]);
-        //h_res_laqgsm_vs_centrality[i_harm]->SetMarkerStyle(marker_res_style[1]);
+        p_res_laqgsm_vs_centrality[i_harm]->SetMarkerStyle(marker_res_style[2]);
+        h_res_laqgsm_vs_centrality[i_harm]->SetMarkerStyle(marker_res_style[3]);
 
-        //p_res_laqgsm_vs_centrality[i_harm]->SetMarkerColor(marker_res_color[3]);
-        //h_res_laqgsm_vs_centrality[i_harm]->SetMarkerColor(marker_res_color[3]);
-    //}
+        p_res_laqgsm_vs_centrality[i_harm]->SetMarkerColor(marker_res_color[3]);
+        h_res_laqgsm_vs_centrality[i_harm]->SetMarkerColor(marker_res_color[3]);
+    }
 
     for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
         for (Int_t i_harm=0; i_harm<n_harm;i_harm++){
@@ -385,8 +386,8 @@ void Draw_TDR_clone()
             p_res_vs_centrality[i_energy][i_harm]->SetXTitle("Centrality, %");
             h_res_vs_centrality[i_energy][i_harm]->SetXTitle("Centrality, %");
 
-            p_res_vs_centrality[i_energy][i_harm]->SetYTitle(Form("<cos[%i(#Psi_{%i}-#Psi_{RP})]>",i_harm+1,1));
-            h_res_vs_centrality[i_energy][i_harm]->SetYTitle(Form("<cos[%i(#Psi_{%i}-#Psi_{RP})]>",i_harm+1,1));
+            p_res_vs_centrality[i_energy][i_harm]->SetYTitle(Form("R_{%i} {#Psi_{EP,%i}}",i_harm+1,1));
+            h_res_vs_centrality[i_energy][i_harm]->SetYTitle(Form("R_{%i} {#Psi_{EP,%i}}",i_harm+1,1));
 
             p_res_vs_centrality[i_energy][i_harm]->SetTitle("");
             h_res_vs_centrality[i_energy][i_harm]->SetTitle("");
@@ -695,23 +696,27 @@ void Draw_TDR_clone()
     TLegend* leg_res;
     TLegend* leg_res_energy;
 
-    leg_res = new TLegend(0.23,0.69,0.60,0.87);
+    leg_res = new TLegend(0.23,0.75,0.85,0.88);
 
-    leg_res_energy = new TLegend(0.65,0.69,0.85,0.87);
+    leg_res_energy = new TLegend(0.65,0.75,0.85,0.88);
 
     c_res->Divide(2,1);
 
-    leg_res->SetHeader("UrQMD, GEANT3, 4M events","C");
-    leg_res->AddEntry((TObject*)0,"","");
-    leg_res->AddEntry((TObject*)0,"","");
+    leg_res->SetHeader("Au-Au, #sqrt{s_{NN}}=11 GeV, GEANT3","C");
+    leg_res->SetNColumns(2);
+    //leg_res->AddEntry((TObject*)0,"","");
+    //leg_res->AddEntry((TObject*)0,"","");
     TLegendEntry *headerRes = (TLegendEntry*)leg_res->GetListOfPrimitives()->First();
-    headerRes->SetTextSize(.035);
-    //for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
-        //leg_res->AddEntry(h_res_vs_centrality[i_energy][0],energy_title[i_energy].Data(),"p");
-    //}
+    headerRes->SetTextSize(.033);
+    //leg_res->AddEntry((TObject*)0,"UrQMD Au+Au","");
+    for (Int_t i_energy=0;i_energy<n_energy;i_energy++){
+        leg_res->AddEntry(h_res_vs_centrality[i_energy][0],("UrQMD"),"p");
+    }
+    leg_res->AddEntry(p_res_vs_centrality[0][0],"true","p");
     //leg_res->AddEntry((TObject*)0,"LAQGSM Au+Au","");
-    //leg_res->AddEntry(p_res_laqgsm_vs_centrality[0],energy_title[1].Data(),"l");
-    leg_res_energy->SetHeader("Au-Au, 11 GeV");
+    leg_res->AddEntry(p_res_laqgsm_vs_centrality[0],("LAQGSM"),"p");
+    leg_res->AddEntry(h_res_vs_centrality[0][0],"reco","p");
+    //leg_res_energy->SetHeader("Au-Au, 11 GeV");
     leg_res_energy->AddEntry(p_res_vs_centrality[0][0],"true","p");
     leg_res_energy->GetEntry()->SetTextSize(.035);
     leg_res_energy->AddEntry(h_res_vs_centrality[0][0],"reco","p");
@@ -723,14 +728,19 @@ void Draw_TDR_clone()
         c_res->cd(i+1);
         p_res_vs_centrality[0][i]->GetYaxis()->SetRangeUser(res_range[i][0],res_range[i][1]);
         p_res_vs_centrality[0][i]->GetXaxis()->SetRangeUser(centrality_range[0],centrality_range[1]);
+        p_res_vs_centrality[0][i]->GetYaxis()->SetNdivisions(5);
+        p_res_vs_centrality[0][i]       ->SetMarkerSize(1.4);
+        h_res_vs_centrality[0][i]       ->SetMarkerSize(1.4);
+        p_res_laqgsm_vs_centrality[i]   ->SetMarkerSize(1.4);
+        h_res_laqgsm_vs_centrality[i]   ->SetMarkerSize(1.4);
         p_res_vs_centrality[0][i]->Draw();
         h_res_vs_centrality[0][i]->Draw("PSAME,HIST");
         //p_res_vs_centrality[1][i]->Draw("SAME");
         //h_res_vs_centrality[1][i]->Draw("PSAME,HIST");
-        //p_res_laqgsm_vs_centrality[i]->Draw("SAME");
-        //h_res_laqgsm_vs_centrality[i]->Draw("SAME");
-        leg_res_energy->Draw();
+        p_res_laqgsm_vs_centrality[i]->Draw("PHISTSAME");
+        h_res_laqgsm_vs_centrality[i]->Draw("PHISTSAME");
         leg_res->Draw();
+        //leg_res_energy->Draw();
         //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
     }
     c_res->SaveAs("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/res_vs_centrality.eps","recreate");
@@ -793,13 +803,17 @@ void Draw_TDR_clone()
     //VN VS PT
     //--------------------------------------------------------------------------------------------------------
     TCanvas* c_vn_pt[n_energy];
-    TLegend* leg_vn_pt[n_energy];
+    TLegend* leg_vn_pt[n_energy][4];
     TLegend* leg_vn_type[n_energy][4];
+    TLegendEntry *headerPt;
+    TLine*   line = new TLine();
+    line->SetLineStyle(2);
+    line->SetLineWidth(2);
 
     for (Int_t i_energy=0; i_energy<n_energy; i_energy++){
-    leg_vn_pt[i_energy] = new TLegend(0.22,0.68,0.48,0.86);
         for (Int_t i=0;i<4;i++){
-            leg_vn_type[i_energy][i] = new TLegend(0.38,0.6,0.67,0.82);
+            leg_vn_pt[i_energy][i] = new TLegend(0.2,0.65,0.89,0.89);
+            leg_vn_type[i_energy][i] = new TLegend(0.58,0.25,0.88,0.35);
         }
     }
 
@@ -808,80 +822,128 @@ void Draw_TDR_clone()
         c_vn_pt[i_energy] = new TCanvas(Form("c_vn_pt%i",i_energy),Form("vn vs pt %i", i_energy),700,700);
         c_vn_pt[i_energy]-> Divide(2,2);
         c_vn_pt[i_energy]->cd(1);
-        leg_vn_pt[i_energy]->SetHeader(Form("%s",energy_title[i_energy].Data()));
-        leg_vn_pt[i_energy]->AddEntry(p_vn_true_vs_pt[i_energy][0][0][0],"true","p");
-        leg_vn_pt[i_energy]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"reco","p");
+        leg_vn_pt[i_energy][0]->SetHeader(vn_Title[0].Data(),"C");
+        headerPt = (TLegendEntry*)leg_vn_pt[i_energy][0]->GetListOfPrimitives()->First();
+        headerPt->SetTextSize(.028);
+        leg_vn_pt[i_energy][0]->SetNColumns(2);
+        leg_vn_pt[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"PROTON (p)"       ,"p");
+        leg_vn_pt[i_energy][0]->AddEntry(p_vn_true_vs_pt[i_energy][0][0][0],"true"     ,"p");
+        leg_vn_pt[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][1],"KAON (K^{+})"   ,"p");
+        leg_vn_pt[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"reco"     ,"p");
+        leg_vn_pt[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][2],"PION (#pi^{+})" ,"p");
+        leg_vn_pt[i_energy][0]->AddEntry((TObject*)0,"","");
         p_vn_reco_vs_pt[i_energy][0][0][0]->GetXaxis()->SetRangeUser(pt_range[0],pt_range[1]);
         p_vn_reco_vs_pt[i_energy][0][0][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_pt[i_energy][0][0][0]->Draw();
+        leg_vn_pt[i_energy][0]->Draw();
+        p_vn_reco_vs_pt[i_energy][0][0][0]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][0][0][1]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][0][0][2]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][0][0]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][0][1]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][0][2]->Draw("SAME");
+        line->DrawLine(pt_range[0],0.,pt_range[1],0.);
         leg_vn_type[i_energy][0]->SetHeader("10-20%");
-        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"p, (TOF+TPC) PID"        ,"p");
-        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][1],"K^{+}, (TOF+TPC) PID"    ,"p");
-        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
-        TLegendEntry *headerPt = (TLegendEntry*)leg_vn_type[i_energy][0]->GetListOfPrimitives()->First();
-        headerPt->SetTextSize(.035);
-        leg_vn_pt[i_energy]->Draw();
-        leg_vn_type[i_energy][0]->Draw();
-        text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
+        leg_vn_type[i_energy][0]->SetNColumns(3);
+        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0]," p"        ,"p");
+        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][1]," K^{+}"    ,"p");
+        leg_vn_type[i_energy][0]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][2]," #pi^{+}"  ,"p");
+        //TLegendEntry *headerPt = (TLegendEntry*)leg_vn_type[i_energy][0]->GetListOfPrimitives()->First();
+        //headerPt->SetTextSize(.035);
+        //leg_vn_type[i_energy][0]->Draw();
+        //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         c_vn_pt[i_energy]->cd(2);
+        leg_vn_pt[i_energy][1]->SetHeader(vn_Title[1].Data(),"C");
+        headerPt = (TLegendEntry*)leg_vn_pt[i_energy][1]->GetListOfPrimitives()->First();
+        headerPt->SetTextSize(.028);
+        leg_vn_pt[i_energy][1]->SetNColumns(2);
+        leg_vn_pt[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"PROTON (p)"       ,"p");
+        leg_vn_pt[i_energy][1]->AddEntry(p_vn_true_vs_pt[i_energy][0][0][0],"true"     ,"p");
+        leg_vn_pt[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][1],"KAON (K^{+})"   ,"p");
+        leg_vn_pt[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"reco"     ,"p");
+        leg_vn_pt[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][2],"PION (#pi^{+})" ,"p");
+        leg_vn_pt[i_energy][1]->AddEntry((TObject*)0,"","");
         p_vn_reco_vs_pt[i_energy][0][1][0]->GetXaxis()->SetRangeUser(pt_range[0],pt_range[1]);
         p_vn_reco_vs_pt[i_energy][0][1][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_pt[i_energy][0][1][0]->Draw();
+        leg_vn_pt[i_energy][1]->Draw();
+        p_vn_reco_vs_pt[i_energy][0][1][0]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][0][1][1]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][0][1][2]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][1][0]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][1][1]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][0][1][2]->Draw("SAME");
+        line->DrawLine(pt_range[0],0.,pt_range[1],0.);
         leg_vn_type[i_energy][1]->SetHeader("20-40%");
-        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][0],"p, (TOF+TPC) PID"        ,"p");
-        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][1],"K^{+}, (TOF+TPC) PID"    ,"p");
-        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
-        headerPt = (TLegendEntry*)leg_vn_type[i_energy][1]->GetListOfPrimitives()->First();
-        headerPt->SetTextSize(.035);
-        leg_vn_pt[i_energy]->Draw();
-        leg_vn_type[i_energy][1]->Draw();
-        text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
+        leg_vn_type[i_energy][1]->SetNColumns(3);
+        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][0]," p"        ,"p");
+        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][1]," K^{+}"    ,"p");
+        leg_vn_type[i_energy][1]->AddEntry(p_vn_reco_vs_pt[i_energy][0][1][2]," #pi^{+}"  ,"p");
+        //headerPt = (TLegendEntry*)leg_vn_type[i_energy][1]->GetListOfPrimitives()->First();
+        //headerPt->SetTextSize(.035);
+        //leg_vn_pt[i_energy]->SetHeader(Form("Au-Au, #sqrt{s_{NN}}=11 GeV, 20-40%, GEANT3, UrQMD, 4M events","C"));
+        //leg_vn_type[i_energy][1]->Draw();
+        //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         c_vn_pt[i_energy]->cd(3);
+        leg_vn_pt[i_energy][2]->SetHeader(vn_Title[0].Data(),"C");
+        headerPt = (TLegendEntry*)leg_vn_pt[i_energy][2]->GetListOfPrimitives()->First();
+        headerPt->SetTextSize(.028);
+        leg_vn_pt[i_energy][2]->SetNColumns(2);
+        leg_vn_pt[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"PROTON (p)"       ,"p");
+        leg_vn_pt[i_energy][2]->AddEntry(p_vn_true_vs_pt[i_energy][0][0][0],"true"     ,"p");
+        leg_vn_pt[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][1],"KAON (K^{+})"   ,"p");
+        leg_vn_pt[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"reco"     ,"p");
+        leg_vn_pt[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][2],"PION (#pi^{+})" ,"p");
+        leg_vn_pt[i_energy][2]->AddEntry((TObject*)0,"","");
         p_vn_reco_vs_pt[i_energy][1][0][0]->GetXaxis()->SetRangeUser(pt_range[0],pt_range[1]);
         p_vn_reco_vs_pt[i_energy][1][0][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_pt[i_energy][1][0][0]->Draw();
+        leg_vn_pt[i_energy][2]->Draw();
+        p_vn_reco_vs_pt[i_energy][1][0][0]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][1][0][1]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][1][0][2]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][0][0]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][0][1]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][0][2]->Draw("SAME");
         leg_vn_type[i_energy][2]->SetHeader("10-20%");
-        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][0],"p, (TOF+TPC) PID"        ,"p");
-        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][1],"K^{+}, (TOF+TPC) PID"    ,"p");
-        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
-        headerPt = (TLegendEntry*)leg_vn_type[i_energy][2]->GetListOfPrimitives()->First();
-        headerPt->SetTextSize(.035);
-        leg_vn_pt[i_energy]->Draw();
-        leg_vn_type[i_energy][2]->Draw();
-        text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
+        leg_vn_type[i_energy][2]->SetNColumns(3);
+        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][0]," p"        ,"p");
+        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][1]," K^{+}"    ,"p");
+        leg_vn_type[i_energy][2]->AddEntry(p_vn_reco_vs_pt[i_energy][1][0][2]," #pi^{+}"  ,"p");
+        //headerPt = (TLegendEntry*)leg_vn_type[i_energy][2]->GetListOfPrimitives()->First();
+        //headerPt->SetTextSize(.035);
+        //leg_vn_type[i_energy][2]->Draw();
+        //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
         c_vn_pt[i_energy]->cd(4);
+        leg_vn_pt[i_energy][3]->SetHeader(vn_Title[1].Data(),"C");
+        headerPt = (TLegendEntry*)leg_vn_pt[i_energy][3]->GetListOfPrimitives()->First();
+        headerPt->SetTextSize(.028);
+        leg_vn_pt[i_energy][3]->SetNColumns(2);
+        leg_vn_pt[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"PROTON (p)"       ,"p");
+        leg_vn_pt[i_energy][3]->AddEntry(p_vn_true_vs_pt[i_energy][0][0][0],"true"     ,"p");
+        leg_vn_pt[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][1],"KAON (K^{+})"   ,"p");
+        leg_vn_pt[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][0],"reco"     ,"p");
+        leg_vn_pt[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][0][0][2],"PION (#pi^{+})" ,"p");
+        leg_vn_pt[i_energy][3]->AddEntry((TObject*)0,"","");
         p_vn_reco_vs_pt[i_energy][1][1][0]->GetXaxis()->SetRangeUser(pt_range[0],pt_range[1]);
         p_vn_reco_vs_pt[i_energy][1][1][0]->GetXaxis()->SetNdivisions(5);
         p_vn_reco_vs_pt[i_energy][1][1][0]->Draw();
+        leg_vn_pt[i_energy][3]->Draw();
+        p_vn_reco_vs_pt[i_energy][1][1][0]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][1][1][1]->Draw("SAME");
         p_vn_reco_vs_pt[i_energy][1][1][2]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][1][0]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][1][1]->Draw("SAME");
         p_vn_true_vs_pt[i_energy][1][1][2]->Draw("SAME");
         leg_vn_type[i_energy][3]->SetHeader("20-40%");
-        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][0],"p, (TOF+TPC) PID"        ,"p");
-        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][1],"K^{+}, (TOF+TPC) PID"    ,"p");
-        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][2],"#pi^{+}, (TOF+TPC) PID"  ,"p");
-        headerPt = (TLegendEntry*)leg_vn_type[i_energy][3]->GetListOfPrimitives()->First();
-        headerPt->SetTextSize(.035);
-        leg_vn_pt[i_energy]->Draw();
-        leg_vn_type[i_energy][3]->Draw();
-        text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
+        leg_vn_type[i_energy][3]->SetNColumns(3);
+        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][0]," p"        ,"p");
+        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][1]," K^{+}"    ,"p");
+        leg_vn_type[i_energy][3]->AddEntry(p_vn_reco_vs_pt[i_energy][1][1][2]," #pi^{+}"  ,"p");
+        //headerPt = (TLegendEntry*)leg_vn_type[i_energy][3]->GetListOfPrimitives()->First();
+        //headerPt->SetTextSize(.035);
+        //leg_vn_type[i_energy][3]->Draw();
+        //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
 
         c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_pt_%i.eps",i_energy),"recreate");
         c_vn_pt[i_energy]->SaveAs(Form("/home/peter/Documents/WorkLocal/MPD/Pics/Final1/vn_vs_pt_%i.png",i_energy),"recreate");
@@ -895,7 +957,6 @@ void Draw_TDR_clone()
     TCanvas* c_vn_mc_y[n_energy];
     TLegend* leg_vn_rapidity[n_energy];
     TLegend* leg_vn_type_rapidity[n_energy][4];
-    TLine*   line = new TLine();
     line->SetLineStyle(2);
     line->SetLineWidth(2);
     TLatex* mc_vn_text = new TLatex();
