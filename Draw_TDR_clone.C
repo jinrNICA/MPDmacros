@@ -21,7 +21,7 @@ const Float_t rapidity_range[]       ={-1.4,1.4};
 const Float_t pt_range[]             ={0.21,2.};
 const Float_t pt_track_range[]       ={0.,3.1};
 const Float_t eta_track_range[]      ={-1.9,1.9};
-const Float_t res_range[2][2]        ={{0.21,1.19},{0.01,0.96}};
+const Float_t res_range[2][2]        ={{0.21,1.19},{0.01,0.86}};
 const Float_t vn_cent_range[2][2]    ={{-0.07,0.01},{-0.035,0.045}};
 const Float_t dca_x_range[]          ={-3.1,3.1};
 const Float_t mult_range[]           ={0,1800};
@@ -79,9 +79,9 @@ void Draw_TDR_clone()
     in_flow_file[0][2] = new TFile("/home/peter/flow-11gev-pions4M.root","read");
     //in_flow_file[1][0] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-proton.root","read");
     //in_flow_file[1][0] = new TFile("/home/peter/flow-11gev-protons_noBirkPDG.root","read");
-    ////in_flow_file[1][1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-kaon.root","read");
+    //in_flow_file[1][1] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-kaon.root","read");
     //in_flow_file[1][1] = new TFile("/home/peter/flow-11gev-kaons_noBirkPDG.root","read");
-    ////in_flow_file[1][2] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-pion.root","read");
+    //in_flow_file[1][2] = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/flow-11-gev-pion.root","read");
     //in_flow_file[1][2] = new TFile("/home/peter/flow-11gev-pions_noBirkPDG.root","read");
     
     TFile* inStyle = new TFile("/home/peter/Documents/WorkLocal/MPD/RootFiles/TDR/my_style.root","READ");
@@ -739,7 +739,7 @@ void Draw_TDR_clone()
         //h_res_vs_centrality[1][i]->Draw("PSAME,HIST");
         p_res_laqgsm_vs_centrality[i]->Draw("PHISTSAME");
         h_res_laqgsm_vs_centrality[i]->Draw("PHISTSAME");
-        leg_res->Draw();
+        if (i==0) leg_res->Draw();
         //leg_res_energy->Draw();
         //text->DrawLatexNDC(latex_coord[0],latex_coord[1],latex_title);
     }
